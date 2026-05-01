@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Basic rules due to prototype nature and lack of full auth setup in prompt.
+    // Clients can create orders.
+    // Clients can read orders if they know the document ID.
+    // Admins could list and update (for this to perfectly work without auth, we'll be slightly permissive).
+    
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    
+    match /mail/{mailId} {
+      allow create: if true;
+      allow read: if false;
+    }
+    
+    match /pedidos/{pedidoId} {
+      // Anyone can create an order right now.
+      allow create: if true;
+      
+      // Anyone can read a specific order, or list if it's the admin page.
+      // Easiest is to allow read.
+      allow read: if true;
+      
+      // Updates allowed for attaching payment receipt or admin updates.
+      // We will allow open updates for this prototype since there's no user system specified.
+      allow update: if true;
+      
+      allow delete: if true;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "Pedido": {
+      "title": "Pedido",
+      "description": "Uma solicitação de serviço de limpeza de placas solares",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID exclusivo da solicitação (ex: SUNEX-001)"
+        },
+        "nome": {
+          "type": "string",
+          "description": "Nome do cliente"
+        },
+        "telefone": {
+          "type": "string",
+          "description": "Telefone de contato"
+        },
+        "endereco": {
+          "type": "string",
+          "description": "Endereço onde o serviço será realizado"
+        },
+        "placas": {
+          "type": "number",
+          "description": "Quantidade de placas"
+        },
+        "servico": {
+          "type": "string",
+          "description": "Tipo de serviço escolhido (Essencial, Performance, Elite)",
+          "enum": ["Essencial", "Performance", "Elite"]
+        },
+        "pagamento": {
+          "type": "string",
+          "description": "Forma de pagamento (PIX ou no local)",
+          "enum": ["pix", "local"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Status do pedido",
+          "enum": ["aguardando_pagamento", "pagamento_enviado", "confirmado", "agendado", "em_execucao", "finalizado"]
+        },
+        "comprovanteUrl": {
+          "type": "string",
+          "description": "URL da imagem do comprovante no Storage"
+        },
+        "data": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data de criação em string ISO para simplificar"
+        },
+        "createdAt": {
+          "type": "timestamp"
+        },
+        "updatedAt": {
+          "type": "timestamp"
+        }
+      },
+      "required": ["id", "nome", "telefone", "endereco", "placas", "servico", "pagamento", "status", "data", "createdAt"]
+    }
+  },
+  "firestore": {
+    "pedidos/{pedidoId}": {
+      "schema": "Pedido",
+      "description": "Coleção de pedidos dos clientes"
+    }
+  }
+}

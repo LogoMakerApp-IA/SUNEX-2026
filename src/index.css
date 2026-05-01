@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sunex-dark: #0B0B0D;
+  --color-sunex-accent: #FF7A00;
+  --color-sunex-gold: #FFC300;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-sunex-dark);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    /* Subtle background texture/gradient */
+    background-image: radial-gradient(circle at top, rgba(255, 122, 0, 0.03) 0%, rgba(11, 11, 13, 1) 50%);
+    background-attachment: fixed;
+  }
+  
+  option {
+    background-color: var(--color-sunex-dark);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-gradient-to-b from-white/[0.04] to-black/40 border border-white/5 backdrop-blur-xl shadow-2xl shadow-black/80 rounded-2xl;
+  }
+  .input-field {
+    @apply w-full bg-white/[0.02] border border-white/10 p-4 rounded-xl text-white outline-none focus:border-sunex-accent/50 focus:bg-white/[0.04] hover:bg-white/[0.03] transition-all;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-gradient-to-r from-sunex-accent to-[#D46600] text-white border-none py-4 px-6 rounded-xl font-black uppercase tracking-wider text-[13px] cursor-pointer w-full transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,122,0,0.3)] active:scale-95 shadow-lg shadow-black/50 overflow-hidden;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center bg-white/5 border border-white/10 text-white py-4 px-6 rounded-xl font-bold uppercase tracking-wider text-[13px] cursor-pointer w-full transition-all hover:bg-white/10 hover:border-white/20 active:scale-95 shadow-lg shadow-black/50;
+  }
+  .input-label {
+    @apply text-xs text-[#888] font-bold uppercase tracking-widest mb-2 block flex items-center gap-2;
+  }
+  .hero-badge {
+    @apply inline-flex items-center px-4 py-2 bg-sunex-accent/10 border border-sunex-accent/30 text-sunex-gold text-[11px] font-black tracking-widest uppercase rounded-full shadow-[0_0_15px_rgba(255,122,0,0.2)] w-fit backdrop-blur-md;
+  }
+}
