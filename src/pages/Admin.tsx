@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { escutarPedidos, atualizarStatus, zerarPedidos, deletarPedido, anexarImagemAdmin, Pedido, StatusPedido } from '../lib/pedidos';
 import { formatDate } from '../lib/utils';
-import { ExternalLink, LogOut, Trash2, Search, ImagePlus, Loader2, X, Eye } from 'lucide-react';
+import { ExternalLink, LogOut, Trash2, Search, ImagePlus, Loader2, X, Eye, Download } from 'lucide-react';
 
 const STATUS_OPTIONS: {value: StatusPedido, label: string}[] = [
   { value: 'aguardando_pagamento', label: 'Aguardando Pagamento' },
@@ -24,6 +24,7 @@ export default function Admin() {
   const [filterData, setFilterData] = useState('');
   const [uploadingAdminImage, setUploadingAdminImage] = useState<string | null>(null);
   const [viewImage, setViewImage] = useState<{ url: string, title: string } | null>(null);
+  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
   
   const navigate = useNavigate();
 
@@ -111,6 +112,58 @@ export default function Admin() {
     return true;
   });
 
+  const toggleSelection = (id: string) => {
+    const newSet = new Set(selectedOrders);
+    if (newSet.has(id)) {
+      newSet.delete(id);
+    } else {
+      newSet.add(id);
+    }
+    setSelectedOrders(newSet);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedOrders.size === pedidosFiltrados.length && pedidosFiltrados.length > 0) {
+      setSelectedOrders(new Set());
+    } else {
+      setSelectedOrders(new Set(pedidosFiltrados.map(p => p.id)));
+    }
+  };
+
+  const exportToCSV = () => {
+    if (selectedOrders.size === 0) return;
+
+    const ordersToExport = pedidos.filter(p => selectedOrders.has(p.id));
+    
+    // CSV Header
+    let csvContent = "ID;Data;Nome;Email;Telefone;Endereco;Servico;Placas;Pagamento;Status\n";
+
+    ordersToExport.forEach(p => {
+      const row = [
+        p.id,
+        formatDate(new Date(p.data)),
+        p.nome,
+        p.email,
+        p.telefone,
+        `"${(p.endereco || "").replace(/"/g, '""')}"`,
+        p.servico,
+        p.placas,
+        p.pagamento.toUpperCase(),
+        STATUS_OPTIONS.find(opt => opt.value === p.status)?.label || p.status
+      ].join(";");
+      csvContent += row + "\n";
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `sunex_relatorio_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="flex-1 max-w-7xl mx-auto w-full px-4 py-8 relative z-10">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6 animate-in slide-in-from-bottom-4 duration-500">
@@ -118,7 +171,16 @@ export default function Admin() {
           <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sunex-gold to-white">Painel Administrativo</h1>
           <p className="text-[#888] mt-2 font-medium tracking-wide">Gerenciamento de solicitações SUNEX do mais recente ao mais antigo.</p>
         </div>
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-4 shrink-0 flex-wrap justify-end">
+          {selectedOrders.size > 0 && (
+            <button 
+              onClick={exportToCSV}
+              className="flex items-center gap-2 px-5 py-2.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 rounded-xl transition-all hover:scale-105 active:scale-95 text-sm font-bold uppercase tracking-wider"
+            >
+              <Download className="w-4 h-4" />
+              Exportar ({selectedOrders.size})
+            </button>
+          )}
           <button 
             onClick={handleZerar}
             disabled={loading}
@@ -178,6 +240,14 @@ export default function Admin() {
           <table className="w-full text-left bg-transparent">
             <thead className="bg-white/5 border-b border-white/10">
               <tr>
+                <th className="p-5 text-[11px] font-black uppercase tracking-widest text-[#888] w-10 text-center">
+                  <input 
+                    type="checkbox" 
+                    className="w-4 h-4 rounded border-white/20 bg-black/40 accent-sunex-gold cursor-pointer"
+                    checked={selectedOrders.size > 0 && selectedOrders.size === pedidosFiltrados.length}
+                    onChange={toggleSelectAll}
+                  />
+                </th>
                 <th className="p-5 text-[11px] font-black uppercase tracking-widest text-[#888]">ID / Data</th>
                 <th className="p-5 text-[11px] font-black uppercase tracking-widest text-[#888]">Cliente</th>
                 <th className="p-5 text-[11px] font-black uppercase tracking-widest text-[#888]">Serviço</th>
@@ -190,14 +260,23 @@ export default function Admin() {
             <tbody className="divide-y divide-white/5">
               {pedidosFiltrados.map(pedido => (
                 <tr key={pedido.id} className="hover:bg-white/[0.03] transition-colors group">
+                  <td className="p-5 text-center">
+                    <input 
+                      type="checkbox" 
+                      className="w-4 h-4 rounded border-white/20 bg-black/40 accent-sunex-gold cursor-pointer"
+                      checked={selectedOrders.has(pedido.id)}
+                      onChange={() => toggleSelection(pedido.id)}
+                    />
+                  </td>
                   <td className="p-5">
                     <div className="font-mono font-bold text-sunex-gold">{pedido.id}</div>
                     <div className="text-xs text-[#888] mt-1 font-medium">{formatDate(new Date(pedido.data))}</div>
                   </td>
-                  <td className="p-5">
+                  <td className="p-5 max-w-[250px]">
                     <div className="font-bold text-white text-sm">{pedido.nome}</div>
                     <div className="text-xs text-blue-400 mt-1 hover:underline cursor-pointer">{pedido.email}</div>
                     <div className="text-xs text-[#888] mt-1 tracking-wide">{pedido.telefone}</div>
+                    <div className="text-xs text-[#bbb] mt-2 pt-2 border-t border-white/10 break-words">{pedido.endereco}</div>
                   </td>
                   <td className="p-5">
                     <div className="font-bold text-sm text-white">{pedido.servico}</div>
@@ -284,7 +363,7 @@ export default function Admin() {
               ))}
               {pedidosFiltrados.length === 0 && !loading && (
                 <tr>
-                  <td colSpan={7} className="p-16 text-center text-[#888]">
+                  <td colSpan={8} className="p-16 text-center text-[#888]">
                     <div className="inline-flex flex-col items-center">
                       <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
                         <Search className="w-6 h-6 text-white/20" />
