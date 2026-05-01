@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Home from './pages/Home';
 import Solicitar from './pages/Solicitar';
 import Acompanhar from './pages/Acompanhar';
@@ -118,8 +119,8 @@ export default function App() {
             <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
           </Routes>
         </main>
+        <SpeedInsights />
       </div>
     </BrowserRouter>
   );
 }
-
