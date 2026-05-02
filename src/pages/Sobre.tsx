@@ -69,11 +69,11 @@ export default function Sobre() {
         <h2 className="text-3xl font-black text-center text-white mb-10 tracking-tight">Entre em Contato</h2>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-10 md:gap-24 relative z-10 w-fit mx-auto">
           
-          <a href="mailto:sunex589@gmail.com" className="flex items-center gap-5 sm:gap-6 group hover:scale-[1.02] transition-transform">
+          <a href="mailto:sunex589@gmail.com" className="flex items-center gap-5 sm:gap-6 group hover:scale-[1.02] transition-transform w-full md:w-auto">
             <div className="bg-gradient-to-br from-sunex-gold/20 to-sunex-accent/10 p-4 sm:p-5 rounded-3xl border border-sunex-gold/20 shadow-[0_5px_20px_rgba(255,195,0,0.1)] group-hover:border-sunex-gold/40 transition-colors shrink-0">
               <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-sunex-gold" />
             </div>
-            <div>
+            <div className="flex-1 text-left">
               <p className="text-[10px] sm:text-[11px] text-[#888] uppercase tracking-[3px] mb-1 font-black">E-mail</p>
               <span className="text-white font-bold transition-colors text-lg sm:text-xl break-all">
                 sunex589@gmail.com
@@ -83,13 +83,13 @@ export default function Sobre() {
 
           <div className="hidden md:block w-[1px] h-20 bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
           
-          <a href="https://wa.me/5584988126175" target="_blank" rel="noreferrer" className="flex items-center gap-5 sm:gap-6 group hover:scale-[1.02] transition-transform">
+          <a href="https://wa.me/5584988126175" target="_blank" rel="noreferrer" className="flex items-center gap-5 sm:gap-6 group hover:scale-[1.02] transition-transform w-full md:w-auto">
             <div className="bg-gradient-to-br from-sunex-gold/20 to-sunex-accent/10 p-4 sm:p-5 rounded-3xl border border-sunex-gold/20 shadow-[0_5px_20px_rgba(255,195,0,0.1)] group-hover:border-sunex-gold/40 transition-colors shrink-0">
               <Smartphone className="w-7 h-7 sm:w-8 sm:h-8 text-sunex-gold" />
             </div>
-            <div>
+            <div className="flex-1 text-left">
               <p className="text-[10px] sm:text-[11px] text-[#888] uppercase tracking-[3px] mb-1 font-black">WhatsApp</p>
-              <span className="text-white font-bold transition-colors text-lg sm:text-xl">
+              <span className="text-white font-bold transition-colors text-lg sm:text-xl break-all">
                 (84) 98812-6175
               </span>
             </div>
