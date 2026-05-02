@@ -21,7 +21,7 @@ export interface Pedido {
 }
 
 export function escutarPedidos(callback: (pedidos: Pedido[]) => void) {
-  const q = query(collection(db, 'pedidos'), orderBy('createdAt', 'desc'));
+  const q = query(collection(db, 'pedidos'), orderBy('data', 'desc'));
   return onSnapshot(q, (snapshot) => {
     callback(snapshot.docs.map(doc => doc.data() as Pedido));
   });
@@ -68,7 +68,7 @@ export async function buscarPedido(id: string): Promise<Pedido | null> {
 
 export async function listarPedidos(): Promise<Pedido[]> {
   try {
-    const q = query(collection(db, 'pedidos'), orderBy('createdAt', 'desc'));
+    const q = query(collection(db, 'pedidos'), orderBy('data', 'desc'));
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(doc => doc.data() as Pedido);
   } catch (error) {

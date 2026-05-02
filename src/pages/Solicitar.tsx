@@ -24,7 +24,7 @@ export default function Solicitar() {
 
   const dropdownOptions = [
     { value: 'Essencial', label: 'Essencial (Limpeza Padrão)' },
-    { value: 'Performance', label: 'Performance (Limpeza + Inspeção Visual)' },
+    { value: 'Performance', label: 'Performance (Limpeza + Inspeção técnica)' },
     { value: 'Elite', label: 'Elite (Limpeza + Inspeção + Aplicação Protetora)' }
   ];
 
@@ -81,16 +81,10 @@ export default function Solicitar() {
         data: new Date().toISOString()
       };
 
-      // Não bloqueia a interface se a rede estiver lenta.
-      // O Firebase cuidará de sincronizar em background.
-      const createPromise = criarPedido(payload);
-      const timeoutPromise = new Promise(resolve => setTimeout(resolve, 600));
-      
-      await Promise.race([createPromise, timeoutPromise]).catch(console.error);
-
+      await criarPedido(payload);
       setSuccessId(novoId);
     } catch (error) {
-      alert('Erro ao criar pedido. Tente novamente.');
+      alert('Erro ao criar pedido. Verifique sua conexão e tente novamente.');
     } finally {
       setLoading(false);
     }

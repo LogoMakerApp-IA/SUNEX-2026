@@ -152,7 +152,7 @@ export default function Acompanhar() {
             type="text"
             value={searchId}
             onChange={(e) => setSearchId(e.target.value.toUpperCase())}
-            placeholder="Ex: SUNEX-1234"
+            placeholder="Ex: SUN-ABCD-1234"
             className="w-full bg-black/40 border-2 border-white/10 focus:border-sunex-accent/50 p-4 pl-6 pr-16 rounded-xl text-lg uppercase outline-none transition-all placeholder:text-white/20 backdrop-blur-md"
           />
           <button 

@@ -6,9 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateId(): string {
-  // Generate a random 4 digit number
+  // Generate a random 4 digit number combined with a short hash of timestamp
   const num = Math.floor(1000 + Math.random() * 9000);
-  return `SUNEX-${num}`;
+  const timeHash = Date.now().toString(36).slice(-4).toUpperCase();
+  return `SUN-${timeHash}-${num}`;
 }
 
 export function formatDate(date: Date): string {

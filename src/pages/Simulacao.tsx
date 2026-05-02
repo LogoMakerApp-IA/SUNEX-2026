@@ -13,7 +13,7 @@ const PLANOS = {
     descricao: "👉 O plano mais equilibrado e mais vendido\nDuração: 4 meses",
     inclui: [
       "✔️ 1 limpeza completa (a cada 2 meses)",
-      "✔️ Inspeção visual do sistema",
+      "✔️ Inspeção técnica",
       "✔️ 1 inspeção elétrica preventiva inclusa"
     ]
   },
