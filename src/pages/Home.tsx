@@ -22,18 +22,18 @@ export default function Home() {
           Especialistas em limpeza técnica de placas solares. Aumente a eficiência do seu sistema fotovoltaico em até <span className="text-white font-bold">30%</span> com nossa tecnologia especializada.
         </p>
         
-        <div className="grid grid-cols-3 gap-5 mb-14 w-full max-w-[550px]">
-          <div className="glass-panel p-6 text-center hover:scale-105 transition-transform duration-300">
-            <span className="block text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sunex-gold to-sunex-accent mb-1">+25%</span>
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#888] block">Ganho Médio</span>
+        <div className="grid grid-cols-3 gap-2 sm:gap-5 mb-14 w-full max-w-[550px]">
+          <div className="glass-panel p-3 sm:p-6 text-center hover:scale-105 transition-transform duration-300">
+            <span className="block text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sunex-gold to-sunex-accent mb-1">+25%</span>
+            <span className="text-[9px] sm:text-xs font-bold tracking-[0.15em] sm:tracking-widest uppercase text-[#888] block">Ganho Médio</span>
           </div>
-          <div className="glass-panel p-6 text-center hover:scale-105 transition-transform duration-300">
-            <span className="block text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sunex-gold to-sunex-accent mb-1">1.2k</span>
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#888] block">Painéis Limpos</span>
+          <div className="glass-panel p-3 sm:p-6 text-center hover:scale-105 transition-transform duration-300">
+            <span className="block text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sunex-gold to-sunex-accent mb-1">1.2k</span>
+            <span className="text-[9px] sm:text-xs font-bold tracking-[0.15em] sm:tracking-widest uppercase text-[#888] block">Painéis Limpos</span>
           </div>
-          <div className="glass-panel p-6 text-center hover:scale-105 transition-transform duration-300">
-            <span className="block text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sunex-gold to-sunex-accent mb-1">100%</span>
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#888] block">Sustentável</span>
+          <div className="glass-panel p-3 sm:p-6 text-center hover:scale-105 transition-transform duration-300">
+            <span className="block text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sunex-gold to-sunex-accent mb-1">100%</span>
+            <span className="text-[9px] sm:text-xs font-bold tracking-[0.15em] sm:tracking-widest uppercase text-[#888] block">Sustentável</span>
           </div>
         </div>
 

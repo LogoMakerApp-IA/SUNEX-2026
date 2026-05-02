@@ -343,7 +343,7 @@ export default function Admin() {
                     <select 
                       value={pedido.status}
                       onChange={(e) => handleStatusChange(pedido.id, e.target.value as StatusPedido)}
-                      className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-xs font-bold uppercase tracking-wider text-white focus:outline-none focus:border-sunex-accent outline-none cursor-pointer focus:ring-2 focus:ring-sunex-accent/20 transition-all"
+                      className="w-full min-w-[200px] bg-black/40 border border-white/10 rounded-lg p-3 text-xs font-bold uppercase tracking-wider text-white focus:outline-none focus:border-sunex-accent outline-none cursor-pointer focus:ring-2 focus:ring-sunex-accent/20 transition-all text-ellipsis"
                     >
                       {STATUS_OPTIONS.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
