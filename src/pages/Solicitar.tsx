@@ -66,7 +66,8 @@ export default function Solicitar() {
 
     try {
       const novoId = generateId();
-      await criarPedido({
+      
+      const payload = {
         id: novoId,
         nome: formData.nome,
         email: formData.email,
@@ -75,10 +76,18 @@ export default function Solicitar() {
         placas: Number(formData.placas),
         servico: formData.servico as any,
         pagamento: formData.pagamento as any,
-        status: 'aguardando_pagamento',
+        status: 'aguardando_pagamento' as any,
         comprovanteUrl: '',
         data: new Date().toISOString()
-      });
+      };
+
+      // Não bloqueia a interface se a rede estiver lenta.
+      // O Firebase cuidará de sincronizar em background.
+      const createPromise = criarPedido(payload);
+      const timeoutPromise = new Promise(resolve => setTimeout(resolve, 600));
+      
+      await Promise.race([createPromise, timeoutPromise]).catch(console.error);
+
       setSuccessId(novoId);
     } catch (error) {
       alert('Erro ao criar pedido. Tente novamente.');
